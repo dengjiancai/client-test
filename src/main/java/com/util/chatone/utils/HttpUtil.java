@@ -135,17 +135,17 @@ public class HttpUtil {
 //        }
 //        return null;
 //    }
-    public static void upload(String localFile){
+    public static String upload(String filePath, String url) throws Exception {
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;
         try {
             httpClient = HttpClients.createDefault();
 
             // 把一个普通参数和文件上传给下面这个地址 是一个servlet
-            HttpPost httpPost = new HttpPost("http://222.84.157.37:13001/scm-web/web/ec/uploadFile.htm");
+            HttpPost httpPost = new HttpPost(url+"/scm-web/web/ec/uploadFile.htm");
 
             // 把文件转换成流对象FileBody
-            FileBody bin = new FileBody(new File(localFile));
+            FileBody bin = new FileBody(new File(filePath));
             bin.getFile();
             StringBody userName = new StringBody("123456", ContentType.create(
                     "text/plain", Consts.UTF_8));
@@ -174,14 +174,19 @@ public class HttpUtil {
             if (resEntity != null) {
                 // 打印响应长度
                 System.out.println("Response content length: " + resEntity.getContentLength());
+                String resJson = EntityUtils.toString(resEntity, Charset.forName("UTF-8"));
                 // 打印响应内容
-                System.out.println(EntityUtils.toString(resEntity, Charset.forName("UTF-8")));
+                System.out.println(resJson);
+                return resJson;
+            }else{
+                throw new Exception("文件上传失败");
             }
-
-            // 销毁
-            EntityUtils.consume(resEntity);
+//
+//            // 销毁
+//            EntityUtils.consume(resEntity);
         }catch (Exception e){
             e.printStackTrace();
+            throw new Exception("文件上传失败");
         }finally {
             try {
                 if(response != null){

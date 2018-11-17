@@ -1,7 +1,9 @@
 package com.util.chatone.controller;
 
 import com.util.chatone.bean.OpenApplyReq;
+import com.util.chatone.bean.OpenApplyRes;
 import com.util.chatone.bean.OpenResultRes;
+import com.util.chatone.bean.UploadFileRes;
 import com.util.chatone.common.ObjectRes;
 import com.util.chatone.service.OpenApplyService;
 import com.util.chatone.utils.HttpUtil;
@@ -42,39 +44,26 @@ public class ForTestController {
 
 
     @ApiImplicitParams({
-            @ApiImplicitParam(value = "请求URL", name = "url", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(value = "请求URL:http://ip:port", name = "url", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(value = "文件路径", name = "filePath", required = true, dataType = "String", paramType = "query"),
     })
-    public void uploadFileTest(@RequestParam String filePath,@RequestParam String url,@RequestParam String requestNo) {
+    public ObjectRes<UploadFileRes> uploadFileTest(@RequestParam String filePath, @RequestParam String url) throws Exception {
 
-        try {
-
-//            HttpUtil.uploadByerp(filePath,url,requestNo);
-            HttpUtil.upload(filePath);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        return openApplyService.uploadFile(filePath,url);
     }
 
     @PostMapping("/openApply")
     @ApiOperation(value = "商票开立")
-    public ObjectRes<OpenResultRes> openApplyTest(@RequestBody OpenApplyReq openApplyReq) {
-        OpenResultRes bodyRes = new OpenResultRes();
-        openApplyService.openApply(openApplyReq);
-
-        ObjectRes<OpenResultRes> objRes = new ObjectRes<OpenResultRes>();
-        objRes.getHead().setResult(true);
-        objRes.getHead().setErrorCode("0000");
-        objRes.getHead().setErrorMsg("处理成功");
-        objRes.setBody(bodyRes);
+    public ObjectRes<OpenApplyRes> openApplyTest(@RequestBody OpenApplyReq openApplyReq) throws Exception {
+        ObjectRes<OpenApplyRes> objRes = openApplyService.openApply(openApplyReq);
         return objRes;
     }
 
     @PostMapping("/openResult.htm")
     @ApiOperation(value = "商票开立查询")
     @ApiImplicitParam(value = "出票编号", name = "openNo", required = true, dataType = "String", paramType = "query")
-    public void openApplyResult(@RequestParam String openNo) {
-
-        openApplyService.openResultQuery(openNo);
+    public ObjectRes<OpenResultRes> openApplyResult(@RequestParam String openNo) throws Exception {
+        ObjectRes<OpenResultRes> objRes =  openApplyService.openResultQuery(openNo);
+        return objRes;
     }
 }

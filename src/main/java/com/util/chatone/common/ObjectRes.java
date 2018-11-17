@@ -1,5 +1,6 @@
 package com.util.chatone.common;
 
+import lombok.Data;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
  * @author Weisq
  * @data 2017/11/28 18:07
  */
+@Data
 public class ObjectRes<T>{
 
 //    private static final long serialVersionUID = -8392565409632653758L;

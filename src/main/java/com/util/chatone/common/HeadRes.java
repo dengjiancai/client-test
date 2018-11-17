@@ -1,9 +1,12 @@
 package com.util.chatone.common;
 
 
+import lombok.Data;
+
 /**
  * 公用请求头
  */
+@Data
 public class HeadRes {
 
     //true：成功 false：失败，详见错误码和错误描述；如果为false，则无需再处理body节点内容（一般返回为空）
