@@ -223,12 +223,12 @@ public class SignUtil {
     }
 
     public static void initTest(){
-        String certKey = "erp_fmc";
-        String alias = "erp_test";
-        String privateFile = "D:/app/key/erp/fmc_erp_test.jks";
-        String publicFile = "D:/app/key/erp/erp_test.cert";
-        String storePass = "ss123456";
-        String keyPass = "kk123456";
+        String certKey = "erp_scm";
+        String alias = "erp_scm_test";
+        String privateFile = "D:/app/key/erp/erp_scm_test.jks";
+        String publicFile = "D:/app/key/erp/scm_erp_test.cert";
+        String storePass = "erpscmst123456";
+        String keyPass = "erpscmjks123456";
         String aesKey = "Erp_test00000000";
         try {
             //私钥信息

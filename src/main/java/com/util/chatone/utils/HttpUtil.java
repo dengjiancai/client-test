@@ -106,7 +106,35 @@ public class HttpUtil {
         return responseResult;
 
     }
-
+//    public static String fmcPost(String url,String mapUrl,String paramStr){
+//        CloseableHttpClient httpClient = HttpRequest.getHttpClient();
+//        CloseableHttpResponse httpResponse = null;
+//        try {
+////            logger.info(url+mapUrl);
+//            HttpPost post = new HttpPost(url+mapUrl);
+//            StringEntity se = new StringEntity(paramStr, Charset.forName("UTF-8"));
+//            se.setContentType("application/json");
+//            post.setEntity(se);
+//            httpResponse = httpClient.execute(post);
+//            HttpEntity entity = httpResponse.getEntity();
+//            int statusCode = httpResponse.getStatusLine().getStatusCode();
+//            if (statusCode == org.apache.http.HttpStatus.SC_OK) {
+//                return EntityUtils.toString(entity,Charset.forName("UTF-8"));
+//            }
+//        } catch (IOException e) {
+////            logger.error("httpclient请求失败", e);
+//        } finally {
+//            if (httpResponse != null) {
+//                try {
+//                    EntityUtils.consume(httpResponse.getEntity());
+//                    httpResponse.close();
+//                } catch (IOException e) {
+////                    logger.error("关闭response失败", e);
+//                }
+//            }
+//        }
+//        return null;
+//    }
     public static void upload(String localFile){
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;
@@ -114,7 +142,7 @@ public class HttpUtil {
             httpClient = HttpClients.createDefault();
 
             // 把一个普通参数和文件上传给下面这个地址 是一个servlet
-            HttpPost httpPost = new HttpPost("http://localhost:9001/scm-web/web/ec/uploadFile.htm");
+            HttpPost httpPost = new HttpPost("http://222.84.157.37:13001/scm-web/web/ec/uploadFile.htm");
 
             // 把文件转换成流对象FileBody
             FileBody bin = new FileBody(new File(localFile));
@@ -134,7 +162,7 @@ public class HttpUtil {
                     .build();
 
             httpPost.setEntity(reqEntity);
-            RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(30000).setConnectTimeout(30000).build();//设置请求和传输超时时间
+            RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(300000).setConnectTimeout(300000).build();//设置请求和传输超时时间
             httpPost.setConfig(requestConfig);
             // 发起请求 并返回请求的响应
             response = httpClient.execute(httpPost);

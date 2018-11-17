@@ -44,7 +44,6 @@ public class ForTestController {
     @ApiImplicitParams({
             @ApiImplicitParam(value = "请求URL", name = "url", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(value = "文件路径", name = "filePath", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(value = "requestNo", name = "requestNo", required = true, dataType = "String", paramType = "query")
     })
     public void uploadFileTest(@RequestParam String filePath,@RequestParam String url,@RequestParam String requestNo) {
 

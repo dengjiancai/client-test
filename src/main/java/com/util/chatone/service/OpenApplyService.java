@@ -74,18 +74,19 @@ public class OpenApplyService {
         openResultReq.setOpenNo(openNo);
 
         objReq.setBody(openResultReq);
-
+        String reStr ="";
         try {
             String sign = SignUtil.sign(objReq);
             headReq.setSign(sign);
             //2、发送请求
-            String reStr = this.send("/web/ec/openResult.htm", JSONObject.toJSONString(objReq));
+            reStr = this.send("/web/ec/openResult.htm", JSONObject.toJSONString(objReq));
             log.info("请求返回：{}",reStr);
 
             openResultRes = JsonUtils.jsonToObject(reStr,OpenResultRes.class);
 
         }catch (Exception e){
-
+            e.getMessage();
+            log.info("查询出错"+reStr);
         }
         return openResultRes;
     }
@@ -95,14 +96,15 @@ public class OpenApplyService {
         String requestTime =df.format(new Date());
         HeadReq req = new HeadReq();
 //        req.setClientId(signConfig.getCertKey());
-        req.setClientId("erp_fmc");
+        req.setClientId("erp_scm");
         req.setVersion("1.0");
         req.setRequestTime(requestTime);
         return req;
     }
 
     private String send(String mapUrl,String paramStr){
-        String url = "http://localhost:9001/scm-web";//for test
+//        String url = "http://localhost:9001/scm-web";//for test
+        String url = "http://222.84.157.37:13001/scm-web";
         String reStr = HttpRequest.fmcPost(url, mapUrl, paramStr);
         return reStr;
     }
