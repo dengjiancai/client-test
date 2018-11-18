@@ -147,18 +147,18 @@ public class HttpUtil {
             // 把文件转换成流对象FileBody
             FileBody bin = new FileBody(new File(filePath));
             bin.getFile();
-            StringBody userName = new StringBody("123456", ContentType.create(
-                    "text/plain", Consts.UTF_8));
-            StringBody password = new StringBody("123456", ContentType.create(
-                    "text/plain", Consts.UTF_8));
+//            StringBody userName = new StringBody("123456", ContentType.create(
+//                    "text/plain", Consts.UTF_8));
+//            StringBody password = new StringBody("123456", ContentType.create(
+//                    "text/plain", Consts.UTF_8));
 
             HttpEntity reqEntity = MultipartEntityBuilder.create()
                     // 相当于<input type="file" name="file"/>
                     .addPart("fileData", bin)
 
                     // 相当于<input type="text" name="userName" value=userName>
-                    .addPart("fileRequestNo", userName)
-                    .addPart("pass", password)
+//                    .addPart("fileRequestNo", userName)
+//                    .addPart("pass", password)
                     .build();
 
             httpPost.setEntity(reqEntity);
